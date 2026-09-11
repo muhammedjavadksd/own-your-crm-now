@@ -1,24 +1,64 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import landingCss from "../landing.css?url";
+import Header from "@/components/landing/Header";
+import Hero from "@/components/landing/Hero";
+import Included from "@/components/landing/Included";
+import Features from "@/components/landing/Features";
+import StatsStrip from "@/components/landing/StatsStrip";
+import Comparison from "@/components/landing/Comparison";
+import Privacy from "@/components/landing/Privacy";
+import Demo from "@/components/landing/Demo";
+import HowItWorks from "@/components/landing/HowItWorks";
+import Pricing from "@/components/landing/Pricing";
+import FAQ from "@/components/landing/FAQ";
+import FinalCTA from "@/components/landing/FinalCTA";
+import Footer from "@/components/landing/Footer";
+
+const title = "OwnCRM — Self-hosted CRM installed on your server, ₹49,999 once";
+const description =
+  "A self-hosted CRM with web dashboard, Android and iOS apps, installed and white-labelled on your own server for one payment of ₹49,999. Unlimited users and leads.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "stylesheet", href: landingCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="page">
+      <Header />
+      <main>
+        <Hero />
+        <Included />
+        <Features />
+        <StatsStrip />
+        <Comparison />
+        <Privacy />
+        <Demo />
+        <HowItWorks />
+        <Pricing />
+        <FAQ />
+        <FinalCTA />
+      </main>
+      <Footer />
     </div>
   );
 }
